@@ -18,8 +18,9 @@ const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 
 // The gate allows 1–30 characters of UTF-8 text, not only whitespace,
 // and the judge compares exactly one username: refuse to ship
-// anything that is not a single word inside that limit.
-if (!/^\S{1,30}$/.test(word)) {
+// anything that is not a single word inside that limit. A handle is
+// letters, digits and hyphens only — no spaces, no padding, no gloss.
+if (!/^\S{1,30}$/.test(word) || !/^[A-Za-z0-9-]+$/.test(word)) {
   throw new Error(`entry word ${JSON.stringify(word)} is not a single word of 1-30 characters`);
 }
 
